@@ -133,11 +133,25 @@ session_start()
             $_SESSION['hasStarted'] = true;
 
             // how many attempts does the player have?
-<<<<<<< HEAD
 
-=======
             $_SESSION['attempts'] = 10;
->>>>>>> notes and code from tutorial 03
+
+
+
+        /**
+         * this function initializes all necessary session variables
+         * foremost, it constructs the code word.
+         */
+        function restart()
+        {
+            // how long is the code word?
+            $codeLength = 4;
+
+            // this can be used to show the landing page and then only
+            $_SESSION['hasStarted'] = true;
+
+            // how many attempts does the player have?
+            $_SESSION['attempts'] = 5;
 
             // here's where you define the alphabet (code space)
             $alphabet = ['A', 'B', 'C', 'D', 'E', 'F'];
