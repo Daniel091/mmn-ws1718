@@ -1,7 +1,7 @@
 <?php
 
 // TODO: start the session.
-
+session_start()
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +19,7 @@
     <section id="output">
         <?php
 
-        $secretWord = 'MultimediaImNetz';
+        $secretWord = 'Otto';
         $wordLength = strlen($secretWord);
         $maximumAttempts = 12; // the number of hangman images that we have...
 
@@ -31,7 +31,8 @@
          * @param $key {string} session-variable key, preferably a string
          * @param $value {*} the value to initialize the variable with, e.g. array(), 1, ''
          */
-        function lazyInitSessionVariable($key, $value){
+        function lazyInitSessionVariable($key, $value)
+        {
             if (!isset($_SESSION[$key])) {
                 $_SESSION[$key] = $value;
             }
@@ -41,25 +42,27 @@
          * takes each letter of the secret word and validates if it is already in the 'hits' array.
          * @return bool true if the word can be guessed with the letter in the 'hits' array.
          */
-        function isCorrect() {
-          global $secretWord;
-          $wordLength = strlen($secretWord);
-          $hits = $_SESSION['hits'];
-          $correct = true;
+        function isCorrect()
+        {
+            global $secretWord;
+            $wordLength = strlen($secretWord);
+            $hits = $_SESSION['hits'];
+            $correct = true;
 
-          for ($i = 0; $i < $wordLength; $i++) {
-            $secretChar = strtoupper($secretWord[$i]);
-            if(!isset($hits[$secretChar])){
-              $correct = false;
-              break;
+            for ($i = 0; $i < $wordLength; $i++) {
+                $secretChar = strtoupper($secretWord[$i]);
+                if (!in_array($secretChar,$hits)) {
+                    $correct = false;
+                    break;
+                }
             }
-          }
-          return $correct;
+            return $correct;
         }
 
         // reset the guesses.
         if (isset($_POST['reset'])) {
-            // TODO: reset the session
+            session_destroy();
+            $_SESSION = array();
         }
 
         // actually initialize the session variables
@@ -68,16 +71,17 @@
         lazyInitSessionVariable('misses', array()); // creates $_SESSION['misses']
 
         // handle a valid guess.
-        if ('TODO') { // TODO 1) make sure that 'guess' was submitted, as well as 'letter'
-            $letter = ''; // TODO read the letter from the POST data.
+        if (isset($_POST['guess']) AND isset($_POST['letter'])) {
+            $letter = strtoupper($_POST['letter']);
 
             // determine if we should move the progress forward.
             if (stristr($secretWord, $letter)) { // true means: secretWord contains the letter.
                 // save the letter in the 'hits' list;
-                // TODO write the letter into the 'hits' list (an array)
+                $_SESSION['hits'][] = $letter;
+
             } else {
                 // save the letter in the 'misses' list;
-                // TODO write the letter into the 'misses' list
+                $_SESSION['misses'][] = $letter;
             }
         }
 
@@ -85,37 +89,46 @@
         // but since the first miss should already advance the progress, we need to add +1;
         $progress = count($_SESSION['misses']) ? count($_SESSION['misses']) + 1 : 1;
 
+
         // if you want to make the game harder, you can start it at a later stage
         // by adding a handicap to the progress.
         $handicap = 5; // start the game at stage 5
         $progress += $handicap;
 
+
         $imageFile = 'hangman';
         // determine which of the 12 hangman files we pick.
         // if the progress is below 10, we need to prefix a '0' to the number.
-        $imageFile .= ''; // TODO
+
+        if ($progress < 10) {
+            $imageFile .= '0' . $progress . '.png';
+        } else {
+            $imageFile .= $progress . '.png';
+        }
 
         // before anything else, let's see if the user has now guessed correctly.
-        if (isCorrect()){
-          // TODO show a message that the game was won
-          // TODO reset the session.
+        if (isCorrect()) {
+            echo '<h1> Congrats you won :-) </h1>';
         }
+
+
         // if the progress is smaller than a predefined number of attempts ==> we can play on.
         if ($progress < $maximumAttempts) {
 
-          // reveal the letters inside the 'result' div.
-          echo '<div class="result">';
+            // reveal the letters inside the 'result' div.
+            echo '<div class="result">';
 
-          // show the image:
-          echo "<img src='$imageFile' alt='Hangman - Step $progress' class='hangman'/>";
+            // show the image:
+            echo "<img src='$imageFile' alt='Hangman - Step $progress' class='hangman'/>";
 
             // we go through each letter of the secret word and see if it's a hit or a miss.
             for ($i = 0; $i < $wordLength; $i++) {
                 // make sure we use the uppercase version of the letters.
-                $charAtI = ''; // TODO determine the char at index $i in the $secretWord.
+                $charAtI = strtoupper($secretWord[$i]); // determine the char at index $i in the $secretWord.
+                echo stristr($_SESSION['hits'], $charAtI);
 
                 // case 1: the letter of the word is in the guess array --> reveal the letter
-                if ('fixme') { // TODO insert the actual condition.
+                if (in_array($charAtI, $_SESSION['hits'])) {
                     echo $charAtI;
                 } // case 2: the letter was not guessed yet --> show an underscore
                 else {
@@ -126,12 +139,15 @@
 
 
             // now, to be a little more usable, show which letters were already guessed;
-            // TODO: Optionally inform the user which letters were wrong, using $_SESSION['misses']
+            echo '<br>Misses: ';
+            foreach ($_SESSION['misses'] as $result) {
+                echo $result['type'], ', ';
+            }
 
-          echo '</div>'; # .result
+            echo '</div>'; # .result
         } else { // oh no, the user lost!
             echo "<div class=\"gameover\"><h3>Oh No!</h3><p>You lost. The solution was \"$secretWord\". </p></div>";
-            // TODO: reset the session.
+            session_reset();
         }
 
 
