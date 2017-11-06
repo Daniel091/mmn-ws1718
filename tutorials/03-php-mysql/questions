@@ -35,14 +35,3 @@ How	to	do	it:
 – „Fetch“:	The	values	are	fetched	from	the	result	set
 
 Prepare -> Bind -> Execute -> Fetch
-
-
-
-# Round Up Quiz
-1. mysqli has more benefits -> see slides
-2. limited number of database connections -> soo closing makes sense
-3. prepare, bind , execute , fetch
-4. advantage of prepared statements is -> reuse statements, more secure against sql injections
-5. binds the result to an variable
-6. $x -> $statement-> bind_param("s",$test)
-7. outputs high as often as there are results in that query
