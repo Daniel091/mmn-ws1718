@@ -133,7 +133,7 @@ session_start()
             $_SESSION['hasStarted'] = true;
 
             // how many attempts does the player have?
-            $_SESSION['attempts'] = 5;
+            $_SESSION['attempts'] = 10;
 
             // here's where you define the alphabet (code space)
             $alphabet = ['A', 'B', 'C', 'D', 'E', 'F'];

@@ -1,0 +1,37 @@
+Recap Round-up Quiz Tutorial 02
+
+1. Serialized Data means key value pairs of states “teeth=32;head=1;feet=2;legs=2”
+processing of data to key value pairs
+
+2. cookies are stored in browser of client, because server says the client should create a specific cookie
+and then in the next request the client puts the cookie there -> server can access it
+
+server says client should set a cookie -> clients sets it -> another request
+
+3. Cookies stored in client browser, small piece of data
+
+we use a cookie to relate the session stored on server-> client receives a session id and is uniquely identified with a session id cookie
+
+
+4. they are stored on the client
+
+5. session_destroy() -> removes data and sends to the client to delete cookie
+
+session_unset() -> removes data
+
+6. with keyword: var
+
+7. $object -> fancyMethod1();
+
+
+
+=> Important for exam:
+MySQLi:	Prepared Statements
+
+How	to	do	it:
+– „Prepare“:	Prepare	the	query.	The	template is	checked	for	errors	an.
+– „Bind“:	Bind	the	parameters	to	the	wildcards
+– „Execute“:	The	query	is	executed	with	the	passes	parameters
+– „Fetch“:	The	values	are	fetched	from	the	result	set
+
+Prepare -> Bind -> Execute -> Fetch
