@@ -37,6 +37,9 @@ How	to	do	it:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> answers to questions
 =======
 >>>>>>> answers to questions
 Prepare -> Bind -> Execute -> Fetch
@@ -52,6 +55,7 @@ Prepare -> Bind -> Execute -> Fetch
 6. $x -> $statement-> bind_param("s",$test)
 7. outputs high as often as there are results in that query
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 Prepare -> Bind -> Execute -> Fetch
 >>>>>>> notes and code from tutorial 03
@@ -60,3 +64,5 @@ Prepare -> Bind -> Execute -> Fetch
 =======
 Prepare -> Bind -> Execute -> Fetch
 >>>>>>> notes and code from tutorial 03
+=======
+>>>>>>> answers to questions
