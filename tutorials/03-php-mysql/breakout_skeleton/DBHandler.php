@@ -11,10 +11,14 @@ class DBHandler
      * @param $password String password belonging to the username.
      * @param $db String name of the database.
      */
-    function __construct($host,$user,$password,$db){
+    function __construct($host, $user, $password, $db)
+    {
+        $this->connection = new mysqli($host, $user, $password, $db);
+        if (mysqli_connect_error()) {
+            die('Connect Error (' . mysqli_connect_errno() . ') ' . mysqli_connect_error());
+        }
 
-        //TODO create the database connection.
-        //TODO make sure the table 'albums' exists by calling ensureAlbumsTable()
+        $this->ensureAlbumsTable();
     }
 
     /*********************
@@ -27,9 +31,19 @@ class DBHandler
      * @param $albumTitle String title of the album
      * @return bool true for success, false for error
      */
-    function insertAlbum($artistName,$albumTitle){
-        if($this->connection){
-            // TODO insert the album via mysqli
+    function insertAlbum($artistName, $albumTitle)
+    {
+        if ($this->connection) {
+            $insertStatement = $this->connection->prepare("INSERT INTO `musikTable`
+            (`artist`, `title`) VALUES (?, ?)");
+
+            $insertStatement->bind_param("ss", $artistName, $albumTitle);
+
+            if ($insertStatement->execute()) {
+                return true;
+            } else {
+                return false;
+            }
         }
         return false;
     }
@@ -38,18 +52,41 @@ class DBHandler
      * makes sure that the albums table is present in the database
      * before any interaction occurs with it.
      */
-    function ensureAlbumsTable(){
-        if($this->connection){
-            // TODO create table if it doesn't exist.
+    function ensureAlbumsTable()
+    {
+        if ($this->connection) {
+
+            $query_createMusicTable = "CREATE TABLE IF NOT EXISTS `musikTable` (
+            `id`  INT(5) NOT NULL PRIMARY KEY AUTO_INCREMENT ,
+            `artist` VARCHAR(100) NOT NULL ,
+            `title` VARCHAR(100) NOT NULL
+            )";
+
+            $statement = $this->connection->prepare($query_createMusicTable);
+            if ($statement->execute()) {
+
+            };
         }
     }
 
     /**
      * @return array of rows (id, artist, title)
      */
-    function fetchAlbums(){
+    function fetchAlbums()
+    {
         $albums = array();
-        // TODO fetch all albums and put them into the $albums array.
+        $query_albums = "SELECT id, artist, title FROM `musikTable`";
+        $selectStatement = $this->connection->prepare($query_albums);
+        $selectStatement->execute();
+
+        $selectStatement->bind_result($id, $artist, $title);
+
+        while($selectStatement->fetch()){
+
+            // or do $albums [] = array($id, $artist, $title)
+            array_push($albums, array($id, $artist, $title));
+        }
+
         return $albums;
     }
 
@@ -57,7 +94,8 @@ class DBHandler
      * useful to sanitize data before trying to insert it into the database.
      * @param $string String to be escaped from malicious SQL statements
      */
-    function sanitizeInput(&$string){
+    function sanitizeInput(&$string)
+    {
         $string = $this->connection->real_escape_string($string);
     }
 }
