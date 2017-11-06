@@ -34,7 +34,6 @@ How	to	do	it:
 – „Execute“:	The	query	is	executed	with	the	passes	parameters
 – „Fetch“:	The	values	are	fetched	from	the	result	set
 
-<<<<<<< HEAD
 Prepare -> Bind -> Execute -> Fetch
 
 
