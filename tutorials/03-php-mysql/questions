@@ -35,6 +35,9 @@ How	to	do	it:
 – „Fetch“:	The	values	are	fetched	from	the	result	set
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> answers to questions
 Prepare -> Bind -> Execute -> Fetch
 
 
@@ -47,6 +50,9 @@ Prepare -> Bind -> Execute -> Fetch
 5. binds the result to an variable
 6. $x -> $statement-> bind_param("s",$test)
 7. outputs high as often as there are results in that query
+<<<<<<< HEAD
 =======
 Prepare -> Bind -> Execute -> Fetch
 >>>>>>> notes and code from tutorial 03
+=======
+>>>>>>> answers to questions
