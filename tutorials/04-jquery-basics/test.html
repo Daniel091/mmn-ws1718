@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery Demo</title>
+    <script src="jquery-3.2.1.min.js"></script>
+</head>
+<body>
+    <h1>Hello</h1>
+    <p id="pId"></p>
+    <div id="myDiv">
+        Container
+    </div>
+    <script>
+        if ($) {
+            document.writeln('Hello world, you have jQuery');
+
+            // Modify the DOM
+            $("#pId").text('Yeah');
+
+
+            // both getter and setter, if parameters setter if not getter
+            $('#myDiv').html("<span>My New Content</span>");
+
+            // can also append prepend
+
+        }
+    </script>
+</body>
+</html>
