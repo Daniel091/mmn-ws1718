@@ -1,0 +1,42 @@
+# jQuery Basics
+
+You can use the Google Chrome Console:
+$('#container')
+
+All divs of Container $('#container > div')
+
+# Event Handlers
+
+first add elements
+then add event handler
+
+
+Round-up Quiz
+1. Name an example usage for event.preventDefault()?
+dont trigger page forwarding of a element
+
+
+2. What does the jQuery function return?
+
+# select existing one
+$('#myDiv') -> element with id myDiv, Dom Node
+
+# create a new one
+$('<span>') -> New Node
+
+
+3. Does jQuery allow adding a class to multiple elements at
+once?
+yes -> still loop going underneath
+
+
+4. What’s an advantage of using .on() instead of .click()?
+.on has benefit to remove event listener
+
+
+5. Why do we often need the $(document).ready() callback?
+all elements we are using are loaded by there, everything is there
+
+
+6. How do you add a pause within an animation?
+delay function in Documentation
