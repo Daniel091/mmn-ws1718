@@ -1,6 +1,3 @@
-# Assignment 10 - Meta Data #
-It's probably best if you somehow prefix your folder names with your initials / name / alias
-=======
 # Codebreaker 
 
 Here's a quick summary of what it does
@@ -17,4 +14,7 @@ Here's a quick summary of what it does
 - At first try, two letters were correct, but at the wrong position. 
 - The first time "B" was moved to the front, a red dot appears.
 - As soon as only black and red dots are there, you only need to rearrange the letters. If you look at the history, it should be clear how. 
+
+
+
 
