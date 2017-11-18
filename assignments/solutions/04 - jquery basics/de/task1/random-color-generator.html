@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Random Color Generator</title>
+    <link rel="stylesheet" href="random-color-generator.css"/>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script>
+
+        /**
+         * makes a random color based on an integer between 0 and (255)^3
+         * snatched from http://stackoverflow.com/a/39078626/1447479
+         * @returns {string} color string like "#ab12ce"
+         */
+        function getRandomColor() {
+            return "#" + (Math.random() * 0xFFFFFF << 0).toString(16);
+        }
+
+        // we wait for the dom-ready event to make sure
+        // the entire document has been parsed and is now accessible
+        $(document).ready(function() {
+
+            // this is the bottom container, which actually spans the
+            // entire screen.
+            const bottom = $('#bottom');
+
+            // if this button is clicked,
+            // a) a random color is generated
+            // b) the color is applied to the background-color CSS property
+            //    of the bottom element.
+            const button = $('#generateButton');
+
+            // this div shows the hex-code of the color
+            const colorDisplay = bottom.find('#colorDisplay');
+
+            // your code goes here!
+            $(button).click(function(e){
+                var color = getRandomColor();
+                $(bottom).css("background-color", color);
+                $(colorDisplay).html(color)
+            });
+        })
+
+    </script>
+</head>
+<body>
+<!--
+    You don't need to change any of the code below
+-->
+<div id="top">
+    <button id="generateButton">Generate</button>
+</div>
+<div id="bottom">
+    <div id="colorDisplay"></div>
+</div>
+</body>
+</html>
