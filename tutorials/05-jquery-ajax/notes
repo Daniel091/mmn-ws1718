@@ -1,0 +1,52 @@
+# Some Notes on the test
+POST is not secure, (postcard is in letter), when you want to be pretty sure no one can read your password --> ssl
+
+$_POST and $_GET are superglobal associative arrays
+
+initialize session before any output, cookies are set in http header, when output occures http body begins
+
+-> some of questions will be just like exam, some more stuff from the lecture
+-> open book test
+
+
+# Breakout Solutions
+
+JSON:
+    + key value pairs, more readable
+    + files are smaller than xml, because there a no tags and stuff
+    + translates directly to javascript objects
+
+    - handful of data types
+    - no difference between attributes and nodes
+    - schemas are difficult to enforce
+
+
+
+# Restman and Postman
+lets send request, gives response
+-> for debugging ajax requests
+
+# you can filter in google dev console in chrome in Network Tab -> Filter Icon -> XHR
+to show post and get requests
+
+
+# Same Origin Policy
+
+domain to make request from, has same origin where the request goes
+if you run for example a web api..
+Great exam question! What do you need to do to fixs the same origin policy problem?
+
+
+
+# Question
+- Ajax -> Asynchronous JavaScript + XML
+- pages continues to execute, e.g phone call sync, text message async
+
+- $_GET -> can be bookmarked
+- $_POST -> little safer for passwords
+
+4. yes would work
+5. the top example
+6. set access control in header, which allows CORS header
+
+
