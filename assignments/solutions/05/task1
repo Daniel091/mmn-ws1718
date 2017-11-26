@@ -1,0 +1,14 @@
+# API Keys
+
+a) API acts as a form of authentication, which can lead to access control.
+For companies which make money from selling such services, its also a way of tracking.
+By blocking a key you can prevent abuse in the case of too-high request volumes.
+
+b) Which benefits do they provide?
+- access control
+- request volumes control
+- authentication
+
+c) Which problems do they generate?
+- must be submitted alongside of the web service or requests (to identify the origin of the request)
+- has to be verified to prevent tempering with the values
