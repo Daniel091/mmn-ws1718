@@ -1,28 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Breakout 02: Repeat Input</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    input[type=number] {
-      width: 75px
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Breakout 02: Repeat Input</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        input[type=number] {
+            width: 75px
+        }
+    </style>
 </head>
 <body>
 
 <div id="inputArea">
-  <input type="text"
-         id="text"
-         placeholder="Your Text"/>
-  <input type="number"
-         id="factor"
-         placeholder="Factor"/>
+    <input type="text"
+           id="text"
+           placeholder="Your Text"/>
+    <input type="number"
+           id="factor"
+           placeholder="Factor"/>
 </div>
 <div id="output"></div>
 <script>
-  // TODO repeat the text that's currently inside #text. #factor defines how often the text should be repeated.
+    const output_ele = document.getElementById("output");
+
+    document.querySelector('#factor').addEventListener('keypress', function (e) {
+        var key = e.which || e.keyCode;
+        if (key === 13) {
+            // clear output
+            output_ele.innerHTML = "";
+            const text = document.getElementById('text').value;
+            const factor = document.getElementById('factor').value;
+
+            var int_factor = parseInt(factor);
+            for (var i = 0; i < int_factor; i++) {
+                var span_ele = document.createElement('p');
+                span_ele.innerText = text;
+
+                output_ele.appendChild(span_ele);
+            }
+        }
+    });
+
+
 </script>
 
 </body>

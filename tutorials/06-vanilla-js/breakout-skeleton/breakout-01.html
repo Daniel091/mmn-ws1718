@@ -23,7 +23,13 @@
 
   const fruits = document.querySelectorAll('.fruits li');
 
-  // TODO wrap the text content of all <li>s in a <div>
+  const els = fruits;
+  for (var i = 0; i < els.length; i++) {
+      const div_el = document.createElement('div');
+      div_el.innerText = els[i].innerText;
+      els[i].innerText = "";
+      els[i].appendChild(div_el);
+  }
 </script>
 
 </body>
