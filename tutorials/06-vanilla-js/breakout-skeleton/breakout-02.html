@@ -24,14 +24,22 @@
 <script>
     const output_ele = document.getElementById("output");
 
-    document.querySelector('#factor').addEventListener('keypress', function (e) {
-        var key = e.which || e.keyCode;
-        if (key === 13) {
-            // clear output
-            output_ele.innerHTML = "";
-            const text = document.getElementById('text').value;
-            const factor = document.getElementById('factor').value;
+    document.querySelector('#factor').addEventListener('keyup', function (e) {
+        makeThings();
+    });
 
+    document.querySelector('#text').addEventListener('keyup', function (e) {
+        makeThings();
+    });
+
+
+    function makeThings() {
+        // clear output
+        output_ele.innerHTML = "";
+        const text = document.getElementById('text').value;
+        const factor = document.getElementById('factor').value;
+
+        if (factor !== "") {
             var int_factor = parseInt(factor);
             for (var i = 0; i < int_factor; i++) {
                 var span_ele = document.createElement('p');
@@ -40,8 +48,7 @@
                 output_ele.appendChild(span_ele);
             }
         }
-    });
-
+    }
 
 </script>
 

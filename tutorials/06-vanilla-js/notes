@@ -22,5 +22,15 @@ U url
 V var
 W while
 X xml
-Y
-Z
+
+
+1. How do you add / remove a class with vanilla JS?
+
+2. Name the steps to perform an AJAX request using the
+XMLHttpRequest API.
+
+3. How do you add parameters to a POST request and in which
+format?
+
+4. Which arguments do you have to provide to the transition
+property in CSS?

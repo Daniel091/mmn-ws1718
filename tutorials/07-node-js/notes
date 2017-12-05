@@ -1,0 +1,42 @@
+Node.js is a platform for easily building fast, scalable network applications
+Node.js files are javascript files :-)
+
+-> to start type: node helloworld.js
+
+-> Node is highly modular and extensible with packages
+npm allows you to easily handle these packages and declare them as dependencies
+
+        Local package installation (only for the app)
+        npm install PACKAGE
+
+
+MEAN stack is  MongoDB, Express.js, AngularJS (or Angular), and Node.js
+
+QUESTIONS
+
+1. Name one difference between NodeJS and Apache?
+both are web servers, when you serve youre app via nods js any potential bug in youre web app is an exploitable bug on the internet
+Adding a layer of Apache means adding a layer of security to it
+
+Node JS is new kid on the block
+Apache old and stable, using php
+
+Node js can handle far more requests than apache, because it has a asynchronous event driven I/O
+
+2. What does require(...) do?
+import a module for node
+
+3. How do you generate a package script?
+npm init
+
+4. How do you conveniently save a dependency on a module into the package script?
+npm install PACKAGE
+
+
+5. What does the body-parser middleware do?
+body-parser extract the entire body portion of an incoming request stream and exposes it on req.body.
+(parse the HTTP message body to a JSON object (body-parser))
+
+6. What is a middleware?
+A middleware is a function that sits between the request and the
+response (“in the middle”) • Does something with the request.

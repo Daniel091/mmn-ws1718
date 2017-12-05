@@ -17,13 +17,25 @@
 <script>
 
   function postJSON(url, callback, params) {
+      const output = document.getElementById('output');
     /*
-
      TODO: open an XMLHttpRequest.
      TODO: send the request with the params.
      TODO: when done, call the callback with the parsed response text
-
      */
+
+    var req = new XMLHttpRequest();
+    req.open('post',url);
+
+    //req.setRequestHeader("Content-length", params.length);
+    req.setRequestHeader("Content-type", "application/json; charset=utf-8");
+    req.onreadystatechange = function() {
+        if (req.readyState === 4) { // done
+            output.innerHTML = req.responseText;
+            //callback(req.responseText);
+        }
+    };
+    req.send(params);
   }
 
   var form = document.querySelector('form');
