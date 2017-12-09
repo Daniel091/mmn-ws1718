@@ -12,6 +12,16 @@ npm allows you to easily handle these packages and declare them as dependencies
 
 MEAN stack is  MongoDB, Express.js, AngularJS (or Angular), and Node.js
 
+
+
+// Usage of express generator
+
+express APP_NAME
+
+--> cd APP_NAME && npm install
+--> DEBUG=express-app:* npm start
+
+
 QUESTIONS
 
 1. Name one difference between NodeJS and Apache?
