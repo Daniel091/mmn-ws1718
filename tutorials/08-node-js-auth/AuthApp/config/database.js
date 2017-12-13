@@ -8,7 +8,7 @@ module.exports = {
   'connection': {
     'host': 'localhost', // you can probably leave this.
     'user': 'root', // if you have root access, leave this
-    'password': '', // if you use XAMPP and did not reconfigure it, the empty password is correct.
+    'password': 'root', // if you use XAMPP and did not reconfigure it, the empty password is correct.
     'database': 'mmn1617' // make sure to create this database first.
   },
   'users_table': 'users'
