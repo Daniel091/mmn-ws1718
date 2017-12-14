@@ -1,3 +1,21 @@
 Authentication: ≈ Verification (you are who you claim to be)
     <->
 Authorization: ≈ Grant access (allowed to use a resource)
+
+1. What does passport.serialize(user, callback) do?
+--> serialize id of user to session, to keep amount of data stored in sessio small
+
+2. What‘s the purpose of passing this object to LocalStrategy?
+new LocalStrategy({
+ usernameField: 'username',
+ passwordField: 'password'
+ },…)
+
+--> passport uses strategies to authenticate requests.
+They verify e.g a username and password.
+
+3. Is the req.isAuthenticated() method built into the NodeJS
+core?
+No it is from Passport..
+
+!! Maybe the stuff with the middleware graph is important
