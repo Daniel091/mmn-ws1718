@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Screenshot Service</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<header><span>Screenshot Service</span></header>
+
+<div id="container">
+  <form id="urlForm">
+    <input id="urlInput" type="text" name="url" placeholder="Enter URL of a website to take screenshot" />
+    <button id="go" type="submit">Go!</button>
+  </form>
+</div>
+
+<div id="result"></div>
+
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script>
+  (function(){
+
+    /**
+     * generates an element that displays a CSS loading animation
+     *
+     * @return {jQuery|HTMLElement} can be appended anywhere in the DOM.
+     */
+    function makeCSSLoader() {
+      var loaderEl = $('<div class="cssload-container">');
+      var wheelEl = $('<div class="cssload-speeding-wheel">');
+      loaderEl.append(wheelEl);
+      return loaderEl;
+    }
+
+    // ******************************************************
+    // ***
+    // how? make an Ajax POST request to 'screenshots/create?url={insert-url-here}'
+      $( "#urlForm" ).submit(function( event ) {
+          event.preventDefault();
+          console.log("Form submitted");
+          var url = $('#urlInput').val();
+
+          // get result container and empty it
+          const result = $('#result');
+          result.empty();
+
+          // make loader and append to DOM
+          var loader = makeCSSLoader();
+          result.append(loader);
+
+          // make ajax
+          $.get("screenshots/create", {
+              url: url
+          }).done(function(data) {
+              // remove loader from DOM
+              loader.remove();
+
+              if (data.path !== "" || !data.path.isEmpty()) {
+                  var imgEl = $('<img>');
+                  imgEl.attr('src', data.path);
+                  result.append(imgEl);
+              }
+
+              console.log(data);
+          });
+
+      });
+    // show a loading animation while the request is loading
+    // ***
+    // ******************************************************
+  })();
+</script>
+<link rel="stylesheet" href="http://www.medien.ifi.lmu.de/lehre/ws1617/mmn/uebung/material/assignments.css">
+<link rel="stylesheet" href="shootstyle.css">
+<link rel="stylesheet" href="cssloader.css">
+</html>
