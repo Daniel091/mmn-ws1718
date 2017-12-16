@@ -50,7 +50,17 @@ app.use('/auth', auth);
 
 // ******************************************************
 // ***
-app.use('/shoot',shoot);
+app.use('/shoot',[ensureAuthentication, shoot]);
+
+function ensureAuthentication(req, res, next) {
+    console.log("Middleware to check Authentication for /secret");
+    if (req.isAuthenticated()) {
+        next();
+    } else {
+        res.redirect('/');
+    }
+}
+
 // ***
 // ******************************************************
 
