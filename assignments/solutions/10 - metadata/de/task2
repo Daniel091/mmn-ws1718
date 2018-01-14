@@ -1,0 +1,20 @@
+Task 2: MPEG 7 Difficulty:
+Please answer the following questions (1-3 sentences each).
+a) Can you use MPEG 7 for analog media? Why (not)?
+
+MPEG 7 is a standard for describing multimedia content data => MPEG 7 describes no standard for the
+handling of metadata of analog media, so you can not use it
+
+
+b) Which has better compression: MPEG 4 or MPEG 7?
+MPEG-4!!
+.. MPEG 7 doesnt offer compression.
+Not a standard which deals with the actual encoding of moving pictures and audio ..
+
+
+c) What are potential reasons why we do not encounter MPEG 7 more often (e.g. for media
+search)?
+
+dont know
+
+

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Meta Data Bingo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        #question {
+            font-weight: 600;
+            font-size: 20px;
+        }
+
+        #notification {
+            margin-left: 100px;
+            font-size: 30px;
+            color: deeppink;
+        }
+
+        .wrong {
+            background-color: red !important;
+            color: whitesmoke !important;
+        }
+
+        .right {
+            background-color: green !important;
+            color: whitesmoke !important;
+        }
+
+        .small_card {
+            margin: 8px;
+            padding: 8px;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+            min-width: 100px;
+            max-width: 90%;
+        }
+    </style>
+</head>
+<body>
+<header>
+    Meta Data Bingo!
+</header>
+<div id="container">
+    <div id="question" class="card"></div>
+    <div id="notification" style="display: none;">BINGO!</div>
+
+    <div class="card flexParent" id="bingo">
+
+
+    </div>
+</div>
+<link rel="stylesheet" href="http://www.medien.ifi.lmu.de/lehre/ws1617/mmn/uebung/material/assignments.css">
+<script>
+
+    /**
+     * modified from https://bost.ocks.org/mike/shuffle/ (Fisher-Yates Shuffle).
+     * this will allow you to call someArray.shuffle(). The shuffling is in place and also the shuffled Array is returned,
+     * you you can method-chain this call.
+     *
+     */
+    Array.prototype.shuffle = function () {
+        var m = this.length, t, i;
+
+        // While there remain elements to shuffle…
+        while (m) {
+
+            // Pick a remaining element…
+            i = Math.floor(Math.random() * m--);
+
+            // And swap it with the current element.
+            t = this[m];
+            this[m] = this[i];
+            this[i] = t;
+        }
+        return this; // to allow method chaining.
+    };
+
+    var template = {
+        'Essence': 'Content consists of meta data and …',
+        'Content': 'Essence and meta-data combined are called …',
+        'Embedded meta data': 'You can save meta-data in databases and separate files. Or you handle it differently. How do you call this different approach?',
+        'MPEG-7': 'A standard to describe multimedia contents',
+        'ID3': 'A standard to save metadata to mp3 files',
+        'Spatial Segment': 'A still-region in an image is in any case a ...',
+        'Segment graph': 'You can relate different segments and visualize the result. How do you call this visualization?',
+        'high-level unstructured meta data': 'In which category of meta-data does the album cover art fit?',
+        'high-level structured meta data': 'In which category of meta-data does „song title“ fit?',
+        'low level meta data': 'In which category of meta-data does „bitrate“ fit?',
+        'GraceNote': 'A famous database to retrieve meta-data about music',
+        'Feature extraction': 'How do you call a process to automatically generate low-level meta-data?',
+        'Fingerprinting': 'What is the name of the procedure with which you can recognize music short samples?',
+        'Temporal segment': 'A sample of a song can be seen as ...',
+        'EXIF': 'What is the most common format to store meta data inside images?',
+        'Dublin Core': 'A standard that consists of 15 meta-data elements and that is targeted at books, magazines and journals.',
+        'RDF': 'A framework to describe web resources',
+        'Shape descriptor': 'The representation of a geometric object',
+        'Automatic score transcription': 'How do you call the process to identify parts of a song or its instruments algorithmically?',
+        'Shazam': 'A company that offers automatic music tagging',
+        'Moving Pictures Expert Group': 'Which organization created MPEG-7?',
+        'Still Regions': 'You can split up areas of pictures into ...',
+        'Structural relation': 'You can associate segments to one another. How do you call this association?',
+        'above': 'An example for a „spatial structural relation“',
+        'Resource': 'Which term matches this definition: Anything that can be identified by a URI'
+    };
+
+    // get answers and questions
+    var answers = [];
+    var questions = [];
+
+    for (var key in template) {
+        answers.push(key);
+        questions.push(template[key]);
+    }
+
+    // mix answers and shuffle questions
+    answers.shuffle();
+    questions.shuffle();
+    console.log(answers.length);
+
+    // choose question, just take last element of array .pop() returns it and pops it from list
+    const question_con = document.getElementById('question');
+    question_con.innerText = questions.pop();
+
+    // create table in bingo div
+    const table = document.createElement('table');
+    table.style.width = '100%';
+    table.id = "bingo_table";
+
+    for (var j = 0; j < answers.length; j += 5) {
+        const tr = document.createElement('tr');
+
+        function appendCell(text) {
+            var td = document.createElement('td');
+            td.innerText = text;
+
+            td.classList.add('small_card');
+            td.classList.add('answer');
+            td.classList.add('flexChild');
+
+            tr.appendChild(td);
+        }
+
+        appendCell(answers[j]);
+        appendCell(answers[j + 1]);
+        appendCell(answers[j + 2]);
+        appendCell(answers[j + 3]);
+        appendCell(answers[j + 4]);
+
+        table.appendChild(tr);
+    }
+    document.getElementById('bingo').appendChild(table);
+
+    // this gets triggered by event listener
+    var cardClick = function () {
+        if (template[this.innerText] === question_con.innerText) {
+            this.classList.add('right');
+        } else {
+            this.classList.add('wrong');
+        }
+
+        // check bingo in row
+        var childs = this.parentNode.childNodes;
+        var valid_row = check_bingo_in_row(childs);
+
+
+        // check bingo in colum
+        var valid_column = check_bingo_in_column(childs, this);
+
+        // check bingo in diagonals
+        var valid_diags = check_bingo_in_diagonals();
+        console.log(valid_diags);
+
+
+        if (valid_row || valid_column || valid_diags) {
+            document.getElementById('notification').style.display = "";
+        } else {
+            // next question
+            question_con.innerText = questions.pop();
+        }
+    };
+
+    // set up event listener for clicking on a card, added to all elements with class answer
+    var cards = document.getElementsByClassName("answer");
+    for (var i = 0; i < cards.length; i++) {
+        cards[i].addEventListener('click', cardClick, false);
+    }
+
+
+    function check_bingo_in_diagonals() {
+        const trs = document.querySelectorAll('tr');
+
+        const tr0 = trs[0].childNodes;
+        const tr1 = trs[1].childNodes;
+        const tr2 = trs[2].childNodes;
+        const tr3 = trs[3].childNodes;
+        const tr4 = trs[4].childNodes;
+
+        var l1 = [tr0[0], tr1[1], tr2[2], tr3[3], tr4[4]];
+        var l2 = [tr0[4], tr1[3], tr2[2], tr3[1], tr4[0]];
+
+
+        var right_l1 = Array.prototype.filter.call(l1, function (td) {
+            return td.classList.contains('right');
+        });
+
+        var right_l2 = Array.prototype.filter.call(l2, function (td) {
+            return td.classList.contains('right');
+        });
+
+        return right_l1.length === tr0.length || right_l2.length === tr0.length;
+    }
+
+    function check_bingo_in_column(childs, ele) {
+        var index = 0;
+        for (var i = 0; i < childs.length; i++) {
+            if (childs[i] === ele) {
+                index = i;
+            }
+        }
+
+        var counter = 0;
+        const trs = document.querySelectorAll('tr');
+        trs.forEach(function (tr) {
+            var tds = tr.childNodes;
+            if (tds[index].classList.contains('right')) {
+                counter += 1;
+            }
+        });
+
+        return counter === childs.length;
+    }
+
+    function check_bingo_in_row(childs) {
+        var counter = 0;
+        childs.forEach(function (child) {
+            if (child.classList.contains('right')) {
+                counter += 1;
+            }
+        });
+
+        return counter === childs.length;
+    }
+
+</script>
+</body>
+</html>
